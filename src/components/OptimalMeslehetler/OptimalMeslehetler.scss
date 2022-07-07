@@ -1,0 +1,95 @@
+#optimalmeslehetler{
+    padding: 30px 0px;
+    .top{
+        text-align: left;
+        line-height: 47px;
+        padding-right: 50px;
+        height: 47px;
+        margin-bottom: -1px;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        h2{
+            font-weight: 700;
+            font-size: 16px;
+            color: #6b6a81;
+            display: inline-block;
+            padding: 2px 18px;
+        }
+    }
+    .bottom{
+        padding: 10px 0px 10px 15px;
+        border: 1px solid #ccc;
+        margin-top: 1px;
+        .image{
+            img{
+                border-radius: 13px;
+                width: 100%;
+                max-width: 100%;
+                transition: 0.3s ease-in-out;
+                &:hover{
+                    opacity: .8;
+                }
+            }
+        }
+        .text{
+            margin-left: 20px;
+            padding-top: 20px;
+            h3{
+                font-size: 14px;
+                color: #222;
+                font-style: normal;
+                clear: both;
+                text-transform: uppercase;
+                font-weight: 700;
+                margin: 8px 0;
+                display: inline-block;
+                transition: 0.3s ease-in-out;
+                cursor: pointer;
+                &:hover{
+                    color: #de1f23;
+                }
+            }
+            h4{
+                color: rgb(0, 0, 0);
+                font-family: inherit;
+                font-weight: 500;
+                line-height: 1.1;
+                font-size: 15px;
+                width: 200px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            .readmore{
+                margin-top: 20px;
+                position: relative;
+                span{
+                    position: relative;
+                    font-size: 10px;
+                    text-transform: inherit;
+                    font-weight: 500;
+                    color: #fff;
+                    padding: 0 15px 0 20px;
+                    background: #454545;
+                    line-height: 28px;
+                    display: inline-block;
+                    border-radius: 20px 0 0 20px;
+                    cursor: pointer;
+                }
+                i{
+                    font-size: 14px;
+                    color: #fff;
+                    background: #de1f23;
+                    position: absolute;
+                    right: 45;
+                    top: 99;
+                    width: 29px;
+                    height: 28px;
+                    line-height: 28px;
+                    text-align: center;
+                    border-radius: 0 20px 20px 0;
+                }
+            }
+        }
+        
+    }
+}
