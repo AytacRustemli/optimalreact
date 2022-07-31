@@ -20,7 +20,7 @@ const SliderPhoto = () => {
   SwiperCore.use([Autoplay]);
 
   return (
-    <div>
+    <div id="slider">
       <Swiper
         modules={[Autoplay]}
         autoplay={{delay:3000}}

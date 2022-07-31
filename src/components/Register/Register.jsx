@@ -50,7 +50,11 @@ const Register = () => {
         </div>
         <div className="legend">
           <p>Şəxsi məlumatlar</p>
-          
+          {errorMessage && (
+          <Alert variant="outlined" severity="error">
+            {errorMessage}
+          </Alert>
+          )}
           <div className="containerr">
             <div className="row">
               <div className="col-lg-2">
@@ -92,11 +96,6 @@ const Register = () => {
         </div>
         <div className="legend">
           <p style={{ marginTop: "20px" }}>Şifrə</p>
-          {errorMessage && (
-          <Alert variant="outlined" severity="error">
-            {errorMessage}
-          </Alert>
-        )}
           <div className="containerr">
             <div className="row">
               <div className="col-lg-2">

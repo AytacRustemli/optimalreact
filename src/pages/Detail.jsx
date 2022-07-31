@@ -1,6 +1,5 @@
 import React from 'react'
 import Details from '../components/Details/Details'
-import Oxsar from '../components/Oxsar/Oxsar'
 import Vestel from '../components/Vestel/Vestel'
 
 const Detail = () => {
@@ -8,7 +7,6 @@ const Detail = () => {
     <div>
         <Details/>
         <Vestel/>
-        <Oxsar/>
     </div>
   )
 }

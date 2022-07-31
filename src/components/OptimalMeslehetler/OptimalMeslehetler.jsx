@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProductsAction } from '../../redux/Actions/ProductAction';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Link } from 'react-router-dom';
 
 const OptimalMeslehetler = () => {
   const getProduct = useSelector((state) => state.products.products.message);
@@ -15,7 +16,7 @@ const OptimalMeslehetler = () => {
     <div id='optimalmeslehetler'>
         <div className="container">
             <div className="top">
-                <h2>OPTİMAL MƏSLƏHƏTLƏR</h2>
+                <h2>MƏSLƏHƏTLƏR</h2>
             </div>
             <div className="bottom">
                 <div className="row">
@@ -37,10 +38,12 @@ const OptimalMeslehetler = () => {
                                             <div className="text">
                                                 <h3>{product.name}</h3>
                                                 <h4>{product.description}</h4>
-                                                <div className="readmore">
-                                                    <span>Ardını oxu...</span>
-                                                    <i class="fa-solid fa-angles-right"></i>
-                                                </div>
+                                                <Link to={'/meslehetler/' + product.id}>
+                                                    <div className="readmore">
+                                                        <span>Ardını oxu...</span>
+                                                        <i class="fa-solid fa-angles-right"></i>
+                                                    </div>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>

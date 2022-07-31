@@ -1,4 +1,3 @@
-
 import { GET_USER, LOGIN_USER, LOGOUT_USER } from '../Constants/UserConstants';
 import { BASE_URL } from './../../api/config';
 

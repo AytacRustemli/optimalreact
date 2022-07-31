@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from './../../api/config';
 import '../Details/Details.scss'
@@ -11,6 +11,9 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCartAction } from '../../redux/Actions/CartAction';
+import { CartContext } from '../../context/MyContext';
 
 
 const colors = {
@@ -30,6 +33,22 @@ const Details = () => {
     const [currentValue, setCurrentValue] = useState(0);
     const [hoverValue, setHoverValue] = useState(undefined);
     const [value, setValue] = useState("1");
+    const  {cartItems}  = useSelector((state) => state.cart)
+    const {cartCount,setCartCount} = useContext(CartContext);
+
+
+
+    const dispatch = useDispatch();
+
+    const addToCartHadler = (id,name) => {
+      var myCart = cartItems.find(e => e.id === id)
+      if (myCart) {
+        dispatch(addToCartAction(id, myCart.quantity + 1))
+      } else {
+        dispatch(addToCartAction(id, 1))
+      }
+      setCartCount(cartCount+1);
+    }
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -160,27 +179,23 @@ const Details = () => {
                         </div>
                         <ul>
                           <li>
-                            Brend: <span>Vestel</span>
+                            Brend: <span>{products.marka}</span>
                           </li>
-                          <li>Məhsulun Kodu: W810T2S</li>
+                          <li>Məhsulun Kodu: {products.sku}</li>
                         </ul>
                         <div className="price">
-                          <p>Qiymət: <span>849.99₼</span></p>
-                        </div>
-                        <div className="red">
-                          <p>-120₼</p>
-                          <span>nağd alışda 729.99₼</span>
+                          <p>Qiymət: <span>{products.price} ₼</span></p>
                         </div>
                       </div><hr />
                       <div className="right1">
                         <div className="d-flex">
-                          <h4>Sayı</h4>
-                          <div className="input">
-                            <input type="number" name="quantity" min="1" value={count} size="2" id="input-quantity" class="form-control" />
-                          </div>
-                          <span className='span' onClick={azalt}><i class="fa fa-minus"></i></span>
-                          <span className='span' onClick={artir}><i class="fa fa-plus"></i></span>
-                          <div className="sebet">
+                          {/* <h4>Sayı</h4> */}
+                          {/* <div className="input">
+                            <input type="number" name="quantity" min="1" value={count}  id="input-quantity" class="form-control" />
+                          </div> */}
+                          {/* <span className='span' onClick={azalt}><i class="fa fa-minus"></i></span>
+                          <span className='span' onClick={artir}><i class="fa fa-plus"></i></span> */}
+                          <div className="sebet"  onClick={() => addToCartHadler(products.id, products.name)}>
                             <span>Səbətə Əlavə et</span>
                           </div>
                           <div className="box">
@@ -219,43 +234,35 @@ const Details = () => {
                     <tbody>
                       <tr className='tr'>
                         <td>Brend</td>
-                        <td>Vestel</td>
+                        <td>{products.marka}</td>
                       </tr>
                       <tr className='tr2'>
-                        <td>Proqramlar</td>
-                        <td>Sürətli, Əllə Yuma / Həssas 30°C, Qarışıq 30°C, Gündəlik 60°C.</td>
+                        <td>Model</td>
+                        <td>{products.model}</td>
                       </tr>
                       <tr className='tr'>
-                        <td>Enerji sinfi</td>
-                        <td>A+++</td>
+                        <td>Çəkisi</td>
+                        <td>{products.ceki}</td>
                       </tr>
                       <tr className='tr2'>
-                        <td>Buxar texnologiyası</td>
-                        <td>Var</td>
+                        <td>Ekran</td>
+                        <td>{products.ekran}</td>
                       </tr>
                       <tr className='tr'>
-                        <td>Uşaq kilidi</td>
-                        <td>Var</td>
+                        <td>Kamera</td>
+                        <td>{products.kamera}</td>
                       </tr>
                       <tr className='tr2'>
-                        <td>Eko</td>
-                        <td>Var</td>
+                        <td>Prosessor</td>
+                        <td>{products.processor}</td>
                       </tr>
                       <tr className='tr'>
-                        <td>Displey</td>
-                        <td>Var</td>
+                        <td>Operativ yaddaş (RAM)</td>
+                        <td>{products.ram}</td>
                       </tr>
                       <tr className='tr2'>
-                        <td>Maksimal yüklənmə</td>
-                        <td>8 kq</td>
-                      </tr>
-                      <tr className='tr'>
-                        <td>Ütüləmə funksiyası</td>
-                        <td>Var</td>
-                      </tr>
-                      <tr className='tr2'>
-                        <td>Rəngi</td>
-                        <td>Ağ</td>
+                        <td>Daxili yaddaş</td>
+                        <td>{products.rom}</td>
                       </tr>
                     </tbody>
                   </table>

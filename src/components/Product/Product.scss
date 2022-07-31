@@ -14,7 +14,7 @@
                 list-style: none;
                 background: #0e0e0e00;
                 color: #464646;
-                font-size: 15px;
+                font-size: 18px;
                 font-weight: 600;
                 padding: 5px 10px;
                 margin: 0 4px;
@@ -24,10 +24,6 @@
                 text-transform: capitalize;
                 transition: 0.3s ease-in-out;
                 cursor: pointer;
-                &:hover{
-                    background-color: #de1f23;
-                    color: #fff;
-                }
             }
         }
     }
@@ -40,50 +36,27 @@
                 transition: 0.3s ease-in-out;
             }
             .red{
-                background-color: rgba(69, 69, 69, .7);
-                position: absolute;
-                top: 0%;
-                left: 0%;
-                width: 200px;
-                height: 0px;
-                transition: 0.5s ease-in-out;
+                margin-top: 10px;
                 .blue{
-                    position: absolute;
-                    top: 27%;
-                    left: 18%;
-                    text-align: center;
+                    // text-align: center;
+                    margin-left: 20px;
                     transition: 0.4s;
                     cursor: pointer;
-                    opacity: 0;
                     i{
                         padding: 10px;
-                        color: white;
-                        border: 2px solid white;
+                        color: red;
+                        border: 2px solid grey;
                         border-radius: 100%;
                         margin-left: 5px;
                         &:hover{
                             color: red;
-                            background-color: white;
+                            background-color: rgb(245, 236, 236);
                         }
                     }
                 }
             }
-            &:hover{
-                .blue{
-                    opacity: 1;
-                }
-                .red{
-                    height: 200px;
-                }
-                .text{
-                    transform: translateY(-90px);
-                    // .sebet{
-                    //     display: none;
-                    // }
-                }
-            }
             .text{
-                transform: translateY(0px);
+                margin-top: 10px;
                 .kondisoner{
                     font-size: 15px;
                     color: black;
@@ -98,10 +71,6 @@
                     font-weight: 700;
                     cursor: pointer;
                     margin-left: 60px;
-                    del{
-                        color: black;
-                        font-weight: 600;
-                    }
                 }
                 .sebet{
                     background: rgb(3,36,0);
@@ -119,11 +88,6 @@
                     margin-left: 10px;
                 }
             }
-            // .image{
-            //     position: absolute;
-            //     bottom: 78%;
-            //     right: 92%;
-            // }
         }
     }
 }

@@ -162,15 +162,41 @@
         }
       }
     }
+    &.active{
+      background-color: red;
+    }
   }
   .centerNav{
     margin-top: 20px;
     .image{
       img{
-        width: 262.5px;
-        height: 50.73px;
+        width: 170px;
       }
     }
+      input {
+        font-size: 14px;
+        color: #949494;
+        font-family: inherit;
+        font-weight: 600;
+        background: 0 0;
+        border: 3px solid #de1f23;
+        display: inline-block;
+        width: 98%;
+        outline: none;
+        border-radius: 25px;
+        padding: 0 40px 0 15px;
+        position: relative;
+        line-height: 41px;
+        height: 41px;
+      }
+      .go{
+        font-size: 10px;
+        margin-top: 15px;
+        cursor: pointer;
+        margin-left: -20px;
+        color: #de1f23;
+      }
+    
     .tel{
       img{
         width: 24px;
@@ -279,6 +305,12 @@
       li{
         list-style: none;
         margin-left: 10px;
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 25px;
+        color: #3a3a3a;
+        cursor: pointer;
       }
     }
   }

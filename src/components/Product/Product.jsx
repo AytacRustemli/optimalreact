@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../Product/Product.scss";
 import { useEffect } from "react";
@@ -6,23 +6,50 @@ import { getProductsAction } from "../../redux/Actions/ProductAction";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Link } from "react-router-dom";
+import { addToCartAction } from './../../redux/Actions/CartAction';
+import { CartContext } from "../../context/MyContext";
+import { addToFavoriesAction } from "../../redux/Actions/FavoriesAction";
+
 
 const Product = () => {
+  const  {cartItems}  = useSelector((state) => state.cart)
+  const  {favoriesItems}  = useSelector((state) => state.favories)
   const getProduct = useSelector((state) => state.products.products.message);
   const dispatch = useDispatch();
+  const [cart, setCart] = useState(0)
+  const {cartCount,setCartCount} = useContext(CartContext);
+
+  const addToCartHadler = (id,name) => {
+    var myCart = cartItems.find(e => e.id === id)
+    if (myCart) {
+      dispatch(addToCartAction(id, myCart.quantity + 1))
+    } else {
+      dispatch(addToCartAction(id, 1))
+    }
+    setCartCount(cartCount+1);
+  }
+
+  const addToCartHandler = (id,name) => {
+    var myCart = favoriesItems.find(e => e.id === id)
+    if (myCart) {
+      dispatch(addToFavoriesAction(id, myCart.quantity + 1))
+    } else {
+      dispatch(addToFavoriesAction(id, 1))
+    }
+    // setCartCount(cartCount+1);
+  }
+
   useEffect(() => {
     dispatch(getProductsAction());
   }, []);
+
   return (
     <div id="product">
       <div className="container">
         <div className="top">
           <div className="container">
             <ul className="d-flex justify-content-between">
-              <li style={{ border: "1px #de1f23 dashed" }}>Yeni Məhsullar</li>
-              <li>Endirimdə Olanlar</li>
-              <li>Ən çox bəyənilənlər</li>
-              <li>Ən çox baxılanlar</li>
+              <li>Yeni Məhsullar</li>
             </ul>
           </div>
         </div>
@@ -45,31 +72,21 @@ const Product = () => {
                         alt=""
                       />
                       </Link>
-                      <Link to={'detail/' + e.id}>
                       <div className="red">
                         <div className="blue">
-                          <i class="fa-solid fa-heart"></i>
+                          <i class="fa-solid fa-heart" onClick={() => addToCartHandler(e.id, e.name)}></i>
                           <i class="fa-solid fa-minimize"></i>
                           <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
                       </div>
-                      </Link>
-                      {/* <div className="image">
-                        <img
-                          width="80px"
-                          src="https://optimal.az/image/catalog/IKONLAR/18-ay2.png"
-                          alt=""
-                        />
-                      </div> */}
                       <div className="text">
                         <p className="kondisoner">
                           {e.name}
                         </p>
                         <p className="price">
                           {e.price} ₼ <br />
-                          <del>5,999.99₼</del>
                         </p>
-                        <p className="sebet">Səbətə Əlavə Et</p>
+                        <p className="sebet" onClick={() => addToCartHadler(e.id, e.name)}>Səbətə Əlavə Et</p>
                       </div>
                     </SwiperSlide>
                   ))}

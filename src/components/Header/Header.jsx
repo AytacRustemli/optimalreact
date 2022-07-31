@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { CartContext } from "../../context/MyContext";
 import { getUserAction, logoutUserAction } from "../../redux/Actions/UserAction";
 import "../Header/header.scss";
 import { BASE_URL } from "./../../api/config";
@@ -8,9 +9,22 @@ import { BASE_URL } from "./../../api/config";
 const Header = () => {
   const { userInfo } = useSelector((state) => state.user);
   const [category, setCategory] = useState([]);
-  
+  const [parentcategory, setParentCategory] = useState([]);
+  const {cartCount} = useContext(CartContext)
+  const { cartItems } = useSelector((state) => state.cart);
+  const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const[navbar,setNavbar] = useState(false)
+
+
+  const countTotal = () => {
+    var price = 0;
+    cartItems.map((cart) => {
+      price += cart.price * cart.quantity;
+    });
+    setTotalPrice(price);
+  };
 
   const logOut = () =>{
     dispatch(logoutUserAction())
@@ -24,13 +38,25 @@ const Header = () => {
   };
 
   useEffect(() => {
+    countTotal();
     getCAtegories();
-  }, [userInfo]);
+  }, [totalPrice, cartItems,userInfo]);
+
+  const changeBackground = () =>{
+    if(window.scrollY >= 10){
+      setNavbar(true);
+    }
+    else{
+      setNavbar(false);
+    }
+  };
+
+  window.addEventListener('scroll',changeBackground);
 
   return (
     <div>
       <section id="header">
-        <div className="topNav">
+        <div className={navbar ? 'topNav active' : 'topNav'}>
           <div className="container">
             <div className="d-flex align-items justify-content-between">
               <div className="left">
@@ -106,13 +132,17 @@ const Header = () => {
           <div className="container">
             <div className="d-flex align-items justify-content-between">
               <div className="image">
-                <img
-                  src="https://optimal.az/image/catalog/Optimal/Optimal%20logo.png"
-                  alt=""
-                />
+                <Link to='/'>
+                  <img
+                    src="https://demo.hasthemes.com/img/upohar/logo.png"
+                    alt=""
+                  />
+                </Link>
               </div>
-              <div className="search">
-                <input type="text" placeholder="axtar" />
+              <div className="d-flex align-items">
+                <input placeholder='Axtar...' type="text" />
+                <i class="fa-solid fa-magnifying-glass go"></i>
+                
               </div>
               <div className="tel">
                 <div className="d-flex">
@@ -123,7 +153,7 @@ const Header = () => {
                   <div className="cagri">
                     <div className="d-flex">
                       <h3>Çağrı mərkəzi</h3>
-                      <h1>(012)954</h1>
+                      <h1>(018)2337</h1>
                     </div>
                     <p class="workdays">Hər gün 09:00 - 21 : 00 </p>
                   </div>
@@ -132,17 +162,19 @@ const Header = () => {
               <div className="heart">
                 <div className="d-flex">
                   <div className="box">
-                    <i class="fa-solid fa-heart"></i>
-                    <div className="zero">
-                      <p>0</p>
-                    </div>
+                    <Link to='/favories'>
+                      <i class="fa-solid fa-heart"></i>
+                    </Link>
+
                   </div>
                   <div className="box1">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                    <Link to='/cart'>
+                      <i class="fa-solid fa-cart-shopping"></i> 
+                    </Link>
                   </div>
                   <div className="box2">
-                    <span className="eded">0</span>
-                    <span class="qiymet">Ədəd - 0.00₼</span>
+                    <span className="eded">{cartCount}</span>
+                    <span class="qiymet">Ədəd - {totalPrice}₼</span>
                   </div>
                 </div>
               </div>
@@ -151,7 +183,7 @@ const Header = () => {
         </div>
         <div className="bottomNav">
           <div className="container">
-            <ul className="category d-flex">
+            <ul className="category d-flex justify-content-between">
               {category.map((e) => (
                 <li key={Math.floor(Math.random() * 100000000)}>{e.name}</li>
               ))}
